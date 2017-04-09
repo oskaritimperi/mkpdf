@@ -2,3 +2,14 @@ language: c
 dist: trusty
 script:
   - ./build.sh
+  - cd build && cpack
+deploy:
+  provider: releases
+  api_key:
+    secure: KpUZGu/5Q/CeBK14hpQHr/afI44ab+kO2eF+efhRoxlN2nCRY37ENs4KmqMzllsG1xWrDjhpMK2JHhBg6LSyCj3g1dSwdbKkaHplhTYNReuRueOwRwcgthc8fbx+FZTrzXmj6JTgHpFeZogK4BINZO53ZWsr+CvvyJQm5CvEbO7PE27hmzEJFjxEl+so9MR7LF+NTHmkgT/cRt8Uk7+DNA5S0eCQOT98tOhMNcfrdn2Gwq5KC5RXpRwEUDso/fzAVWXEZsN82iARpvdEzHJqo9KwP5Adjzbkq8sDHthPUHc1FM6R5rlCaT2U9t6DdY5u+z2c9KoIgPWbIUotgfAgz4sLqQVNr607MyImtnGzdqpThRucINxAXC6PJHdFYjMXg8R8t7urK+KQbngWacw+4Nhjc3zvcvb4HP2PllsBpqAtGQFsgM0irs/QhFz1JfqjuOqq9iTHM6Jrm5jTmJZ+9p/u5MxGJlca41kB3p8Yt6o5AtC95+zp3J9NsGYNZ4cSgmMOnqj2HJ24LXB+nlSGSODG21DCz9qmMPDCSdhTo32R3CDyIsn4IJLVomF2e8395oqXCz8ygpvEIgmrl57q1Zk3vAWlxK5Ls37faERTUdOP+9Wn3rfinxO8DujD1GJRSKEpkF1r/ah6HQvm50v+C899WwvwybMw3WpHDlBoUI0=
+  file_glob: true
+  file: build/mkpdf*.zip
+  skip_cleanup: true
+  on:
+    repo: oswjk/mkpdf
+    tags: true
