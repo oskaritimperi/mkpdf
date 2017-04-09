@@ -1,7 +1,4 @@
 language: c
 dist: trusty
 script:
-  - mkdir lib/build
-  - cd lib/build && cmake .. && make
-  - mkdir build
-  - cd build && cmake .. && make
+  - ./build.sh
