@@ -27,6 +27,11 @@ int main(int argc, char **argv)
     struct optparse optparse;
     const char *script;
 
+#if !defined(_WIN32)
+    size_t l;
+    const char *s;
+#endif
+
     const struct optparse_long options[] =
     {
         { "version", 'v', OPTPARSE_NONE },
@@ -71,6 +76,17 @@ int main(int argc, char **argv)
     lua_pushcfunction(L, luaopen_hpdf);
     lua_setfield(L, -2, "hpdf");
     lua_pop(L, 2);
+
+#if !defined(_WIN32)
+    // Setup package.path so that stuff is also searched from under the current
+    // directory (as in Windows).
+    lua_getglobal(L, "package");
+    lua_getfield(L, -1, "path");
+    s = lua_tolstring(L, -1, &l);
+    lua_pushfstring(L, "%s;./lua/?.lua;./lua/?/init.lua", s);
+    lua_setfield(L, -3, "path");
+    lua_pop(L, 2);
+#endif
 
     if (luaL_dostring(L, mkpdf_lua))
     {
