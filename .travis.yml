@@ -1,5 +1,3 @@
-language: c
-dist: trusty
 script:
   - ./build.sh
   - cd build
@@ -15,3 +13,9 @@ deploy:
   on:
     repo: oswjk/mkpdf
     tags: true
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode7.3
+    - os: linux
+      dist: trusty
